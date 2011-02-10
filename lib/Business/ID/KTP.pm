@@ -1,10 +1,3 @@
 package Business::ID::KTP;
-# ABSTRACT: See Business::ID::NIK instead
-
-=head1 SEE ALSO
-
-L<Business::ID::NIK>
-
-=cut
-
+use parent qw(Business::ID::NIK);
 1;
