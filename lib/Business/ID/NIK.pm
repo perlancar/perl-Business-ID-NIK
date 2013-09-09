@@ -1,50 +1,15 @@
 package Business::ID::NIK;
-# ABSTRACT: Validate Indonesian citizenship registration number (NIK)
 
-=head1 SYNOPSIS
-
-    use Business::ID::NIK;
-
-    # OO-style
-
-    my $nik = Business::ID::NIK->new($str);
-    die "Invalid NIK!" unless $nik->validate;
-
-    print $nik->area_code, "\n";
-    print $nik->date_of_birth, "\n"; # also, dob()
-    print $nik->gender, "\n"; # M for male, or F for female
-    print $nik->serial, "\n";
-
-    # procedural style
-
-    validate_nik($str) or die "Invalid NIK!";
-
-=head1 DESCRIPTION
-
-This module can be used to validate Indonesian citizenship
-registration number, Nomor Induk Kependudukan (NIK), or more popularly
-known as Nomor Kartu Tanda Penduduk (Nomor KTP), because NIK is
-displayed on the KTP (citizen identity card).
-
-NIK is composed of 16 digits as follow:
-
- pp.DDSS.ddmmyy.ssss
-
-pp.DDSS is a 6-digit area code where the NIK was registered (it used
-to be but nowadays not always [citation needed] composed as: pp
-2-digit province code, DD 2-digit city/district [kota/kabupaten] code,
-SS 2-digit subdistrict [kecamatan] code), ddmmyy is date of birth of
-the citizen (dd will be added by 40 for female), ssss is 4-digit
-serial starting from 1.
-
-=cut
-
+use 5.010001;
 use warnings;
 use strict;
 use DateTime;
+
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(validate_nik);
+
+# VERSION
 
 # legend: S = not enough samples, SS = very few samples, D = dubious
 # (other province also have lots of samples)
@@ -89,15 +54,7 @@ my %provinces = (
     '36' => "Banten",
     '37' => undef, # SS
     '38' => undef, # SS
-    );
-
-=head1 METHODS
-
-=head2 new $str
-
-Create a new C<Business::ID::NIK> object.
-
-=cut
+);
 
 sub new {
     my ($class, $str) = @_;
@@ -109,14 +66,6 @@ sub new {
 	_gender => undef,
     }, $class;
 }
-
-=head2 validate()
-
-Return true if NIK is valid, or false if otherwise. In the case of NIK
-being invalid, you can call the errstr() method to get a description
-of the error.
-
-=cut
 
 sub validate {
     my ($self, $another) = @_;
@@ -158,24 +107,11 @@ sub validate {
     $self->{_res} = 1;
 }
 
-=head2 errstr()
-
-Return validation error of NIK, or undef if no error is found. See
-C<validate()>.
-
-=cut
-
 sub errstr {
     my ($self) = @_;
     $self->validate and return;
     $self->{_err};
 }
-
-=head2 normalize()
-
-Return formatted NIK, or undef if NIK is invalid.
-
-=cut
 
 sub normalize {
     my ($self, $another) = @_;
@@ -184,19 +120,7 @@ sub normalize {
     $self->{_str};
 }
 
-=head2 pretty()
-
-Alias for normalize().
-
-=cut
-
 sub pretty { normalize(@_) }
-
-=head2 area_code()
-
-Return 6-digit province code + city/district + subdistrict component of NIK.
-
-=cut
 
 sub area_code {
     my ($self) = @_;
@@ -205,33 +129,13 @@ sub area_code {
     $1;
 }
 
-=head2 date_of_birth()
-
-Return a L<DateTime> object containing the date of birth component of
-the NIK, or undef if NIK is invalid.
-
-=cut
-
 sub date_of_birth {
     my ($self) = @_;
     $self->validate or return;
     $self->{_dob};
 }
 
-=head2 dob()
-
-Alias for day_of_birth()
-
-=cut
-
 sub dob { date_of_birth(@_) }
-
-=head2 gender()
-
-Return gender ('M' for male and 'F' for female), or undef if NIK is
-invalid.
-
-=cut
 
 sub gender {
     my ($self) = @_;
@@ -239,18 +143,105 @@ sub gender {
     $self->{_gender};
 }
 
-=head2 serial()
-
-Return 4-digit serial component of NIK, or undef if NIK is invalid.
-
-=cut
-
 sub serial {
     my ($self) = @_;
     $self->validate or return;
     $self->{_str} =~ /(\d{4})$/;
     $1;
 }
+
+sub validate_nik {
+    my ($str) = @_;
+    Business::ID::NIK->new($str)->validate();
+}
+
+1;
+# ABSTRACT: Validate Indonesian citizenship registration number (NIK)
+
+=head1 SYNOPSIS
+
+    use Business::ID::NIK;
+
+    # OO-style
+
+    my $nik = Business::ID::NIK->new($str);
+    die "Invalid NIK!" unless $nik->validate;
+
+    print $nik->area_code, "\n";
+    print $nik->date_of_birth, "\n"; # also, dob()
+    print $nik->gender, "\n"; # M for male, or F for female
+    print $nik->serial, "\n";
+
+    # procedural style
+
+    validate_nik($str) or die "Invalid NIK!";
+
+=head1 DESCRIPTION
+
+This module can be used to validate Indonesian citizenship
+registration number, Nomor Induk Kependudukan (NIK), or more popularly
+known as Nomor Kartu Tanda Penduduk (Nomor KTP), because NIK is
+displayed on the KTP (citizen identity card).
+
+NIK is composed of 16 digits as follow:
+
+ pp.DDSS.ddmmyy.ssss
+
+pp.DDSS is a 6-digit area code where the NIK was registered (it used
+to be but nowadays not always [citation needed] composed as: pp
+2-digit province code, DD 2-digit city/district [kota/kabupaten] code,
+SS 2-digit subdistrict [kecamatan] code), ddmmyy is date of birth of
+the citizen (dd will be added by 40 for female), ssss is 4-digit
+serial starting from 1.
+
+
+=head1 METHODS
+
+=head2 new $str => OBJ
+
+Create a new C<Business::ID::NIK> object.
+
+=head2 $obj->validate() => BOOL
+
+Return true if NIK is valid, or false if otherwise. In the case of NIK
+being invalid, you can call the errstr() method to get a description
+of the error.
+
+=head2 $obj->errstr() => BOOL
+
+Return validation error of NIK, or undef if no error is found. See
+C<validate()>.
+
+=head2 $obj->normalize() => STR
+
+Return formatted NIK, or undef if NIK is invalid.
+
+=head2 $obj->pretty() => STR
+
+Alias for normalize().
+
+=head2 $obj->area_code() => STR
+
+Return 6-digit province code + city/district + subdistrict component of NIK.
+
+=head2 $obj->date_of_birth() => OBJ
+
+Return a L<DateTime> object containing the date of birth component of
+the NIK, or undef if NIK is invalid.
+
+=head2 $obj->dob() => OBJ
+
+Alias for day_of_birth()
+
+=head2 $obj->gender() => STR
+
+Return gender ('M' for male and 'F' for female), or undef if NIK is
+invalid.
+
+=head2 $obj->serial() => STR
+
+Return 4-digit serial component of NIK, or undef if NIK is invalid.
+
 
 =head1 FUNCTIONS
 
@@ -261,12 +252,3 @@ know the error details, you need to use the OO version (see the
 C<errstr> method).
 
 Exported by default.
-
-=cut
-
-sub validate_nik {
-    my ($str) = @_;
-    Business::ID::NIK->new($str)->validate();
-}
-
-1;
