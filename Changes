@@ -7,6 +7,8 @@ Revision history for Business-ID-NIK
         - Replace interface (validate_nik() and OO interface) with Rinci-based
           parse_nik().
 
+        [ENHANCEMENTS]
+
         - Use list of provinces and localities from, respectively,
           Locale::ID::Province and Locale::ID::Locality.
 
