@@ -7,6 +7,10 @@ Revision history for Business-ID-NIK
         - Replace interface (validate_nik() and OO interface) with Rinci-based
           parse_nik().
 
+        [REMOVED FEATURES]
+
+        - Remove alias module Business::ID::SIM, for making things simpler.
+
         [ENHANCEMENTS]
 
         - Use list of provinces and localities from, respectively,
