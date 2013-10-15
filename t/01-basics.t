@@ -49,7 +49,8 @@ DONE_TESTING:
 done_testing;
 
 sub test_parse {
-    state $cleanser = Data::Clean::JSON->new;
+    # just to convert DateTime objects to Unix time
+    state $cleanser = Data::Clean::JSON->get_cleanser;
 
     my %args = @_;
     subtest +($args{name} //= "nik $args{nik}"), sub {
