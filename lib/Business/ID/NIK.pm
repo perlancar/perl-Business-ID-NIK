@@ -12,8 +12,6 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(parse_nik);
 
-# VERSION
-
 our %SPEC;
 
 $SPEC{parse_nik} = {
@@ -95,7 +93,7 @@ sub parse_nik {
 }
 
 1;
-# ABSTRACT: Validate Indonesian citizenship registration number (NIK)
+# ABSTRACT:
 
 =head1 SYNOPSIS
 
