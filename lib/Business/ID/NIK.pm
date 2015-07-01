@@ -23,6 +23,7 @@ $SPEC{parse_nik} = {
     args => {
         nik => {
             summary => 'Input NIK to be validated',
+            schema => 'str*',
             pos => 0,
             req => 1,
         },
