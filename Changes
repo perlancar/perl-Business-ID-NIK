@@ -1,5 +1,12 @@
 Revision history for Business-ID-NIK
 
+0.06    2015-07-01 (PERLANCAR)
+
+	- No functional changes.
+
+	- Fix Rinci metadata.
+
+
 0.05     2014-08-16 (SHARYANTO) - Happy 19th CPAN Day!
 
          - Add CLI script(s).
