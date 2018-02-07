@@ -85,7 +85,7 @@ sub parse_nik {
     my $today = DateTime->today;
     $y += int($today->year / 100) * 100;
     $y -= 100 if $y > $today->year;
-    eval { $res->{dob} = DateTime->new(day=>$d, month=>$m, year=>$y) };
+    eval { $res->{dob} = DateTime->new(day=>$d, month=>$m, year=>$y)->ymd };
     if ($@) {
         return [400, "Invalid date of birth: $d-$m-$y"];
     }
