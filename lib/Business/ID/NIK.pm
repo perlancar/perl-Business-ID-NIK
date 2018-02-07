@@ -13,7 +13,7 @@ use Locale::ID::Province qw(list_id_provinces);
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(parse_nik);
+our @EXPORT_OK = qw(parse_nik);
 
 our %SPEC;
 
