@@ -126,4 +126,5 @@ female), ssss is 4-digit serial starting from 1.
 
 =head1 SEE ALSO
 
-L<Business::ID::NKK> (nomor KK)
+L<Business::ID::NKK> to parse family card number (nomor kartu keluarga, nomor
+KK, NKK)
