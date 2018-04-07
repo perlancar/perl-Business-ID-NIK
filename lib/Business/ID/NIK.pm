@@ -122,3 +122,8 @@ nowadays not always [citation needed] composed as: pp 2-digit province code, DD
 2-digit city/district [kota/kabupaten] code, SS 2-digit subdistrict [kecamatan]
 code), ddmmyy is date of birth of the citizen (dd will be added by 40 for
 female), ssss is 4-digit serial starting from 1.
+
+
+=head1 SEE ALSO
+
+L<Business::ID::NKK> (nomor KK)
