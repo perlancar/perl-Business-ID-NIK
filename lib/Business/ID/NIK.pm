@@ -36,6 +36,10 @@ $SPEC{parse_nik} = {
             schema  => [bool => default => 1],
         },
     },
+    examples => [
+        {args=>{nik=>"32 7300 010101 0001"}},
+        {args=>{nik=>"32 7300 710101 0001"}},
+    ],
 };
 sub parse_nik {
     my %args = @_;
