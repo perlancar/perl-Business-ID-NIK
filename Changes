@@ -1,3 +1,9 @@
+0.094   2021-08-31  Released-By: PERLANCAR; Urgency: medium
+
+	- Update to newer Locale::ID::Locality & Locale::ID::Province
+	  (renamed functions).
+
+
 0.093   2018-07-01  Released-By: PERLANCAR
 
 	- No functional changes.
