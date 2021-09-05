@@ -1,19 +1,21 @@
 package Business::ID::NIK;
 
-# DATE
-# VERSION
-
 use 5.010001;
 use warnings;
 use strict;
 
 use DateTime;
-use Locale::ID::Locality qw(list_id_localities);
-use Locale::ID::Province qw(list_id_provinces);
+use Locale::ID::Locality qw(list_idn_localities);
+use Locale::ID::Province qw(list_idn_provinces);
 
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(parse_nik);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 our %SPEC;
 
@@ -46,7 +48,7 @@ sub parse_nik {
 
     state $provinces;
     if (!$provinces) {
-        my $res = list_id_provinces(detail => 1);
+        my $res = list_idn_provinces(detail => 1);
         return [500, "Can't get list of provinces: $res->[0] - $res->[1]"]
             if $res->[0] != 200;
         $provinces = { map {$_->{bps_code} => $_} @{$res->[2]} };
@@ -68,7 +70,7 @@ sub parse_nik {
 
     $res->{loc_code}  = substr($nik, 0, 4);
     if ($args{check_locality} // 1) {
-        my $lres = list_id_localities(
+        my $lres = list_idn_localities(
             detail => 1, bps_code => $res->{loc_code});
         return [500, "Can't check locality: $lres->[0] - $lres->[1]"]
             unless $lres->[0] == 200;
