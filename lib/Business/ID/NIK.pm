@@ -5,11 +5,10 @@ use warnings;
 use strict;
 
 use DateTime;
+use Exporter 'import';
 use Locale::ID::Locality qw(list_idn_localities);
 use Locale::ID::Province qw(list_idn_provinces);
 
-require Exporter;
-our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(parse_nik);
 
 # AUTHORITY
